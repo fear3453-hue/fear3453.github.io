@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario Troll Ultra 😏</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #1e1e2f;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+        text-align: center;
+        overflow: hidden;
+    }
+    form {
+        background: #2e2e4f;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px #ff00ff55;
+        width: 300px;
+        transition: all 0.5s;
+    }
+    input, select, button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+    }
+    button {
+        background: #ff00ff;
+        color: #fff;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    button:hover {
+        background: #cc00cc;
+    }
+    .message {
+        font-size: 3rem;
+        margin: 20px;
+        z-index: 10;
+        display: none;
+    }
+    .letter {
+        position: absolute;
+        font-size: 2rem;
+        font-weight: bold;
+        animation: float 3s linear infinite;
+    }
+    @keyframes float {
+        0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+        100% { transform: translate(calc(100vw - 50px), -100vh) rotate(360deg); opacity: 0; }
+    }
+</style>
+</head>
+<body>
+
+    <form id="trollForm">
+        <h2>Formulario Troll 😏</h2>
+        <input type="text" placeholder="Nombre" required>
+        <input type="text" placeholder="Apellido" required>
+        <input type="number" placeholder="Edad" required>
+        <select id="sexo" required>
+            <option value="" disabled selected>Sexo</option>
+            <option value="si_por_favor">Si por favor</option>
+            <option value="no_gracias">No gracias</option>
+        </select>
+        <button type="submit">Enviar 🔥</button>
+    </form>
+
+    <div class="message" id="message"></div>
+
+    <script>
+        const form = document.getElementById('trollForm');
+        const messageDiv = document.getElementById('message');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const sexo = document.getElementById('sexo').value;
+
+            // Oculta el formulario
+            form.style.display = "none";
+
+            if(sexo === "si_por_favor") {
+                messageDiv.style.display = "block";
+                messageDiv.textContent = "😉🍑🔥🍆😏";
+
+                // Animación de letras
+                const letters = ["💥","🔥","💫","✨","🍑","🍆","😉","😏"];
+                for(let i=0; i<50; i++){
+                    const span = document.createElement("span");
+                    span.textContent = letters[Math.floor(Math.random()*letters.length)];
+                    span.className = "letter";
+                    span.style.left = Math.random()*100 + "vw";
+                    span.style.top = Math.random()*100 + "vh";
+                    span.style.fontSize = (Math.random()*30 + 20) + "px";
+                    span.style.animationDuration = (Math.random()*3 + 2) + "s";
+                    document.body.appendChild(span);
+                }
+
+                // Sonidos
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                function beep(frequency, duration){
+                    const osc = audioCtx.createOscillator();
+                    osc.type = "square";
+                    osc.frequency.value = frequency;
+                    osc.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + duration);
+                }
+                setInterval(() => beep(Math.random()*400 + 200, 0.1), 300);
+
+            } else {
+                messageDiv.style.display = "block";
+                messageDiv.textContent = "😢";
+            }
+        });
+    </script>
+
+</body>
+</html>
